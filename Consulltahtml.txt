@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta de Carros</title>
+<style>
+   body { font-family: Arial, sans-serif; margin: 20px; }
+   h1 { color: #333; }
+   p { font-size: 18px; margin: 5px 0; }
+   .alert { color: red; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>Detalhes do Carro</h1>
+<div id="detalhes">
+<p>Carregando...</p>
+</div>
+<script>
+   // Base de dados (substitua por uma API ou JSON dinâmico se necessário)
+   const carros = [
+     { placa: "ABC1234", valor: "50.000", voando: "Sim", dt: "Não" },
+     { placa: "DEF5678", valor: "45.000", voando: "Não", dt: "Sim" }
+   ];
+   // Obtém a placa da URL
+   const urlParams = new URLSearchParams(window.location.search);
+   const placa = urlParams.get('placa');
+   // Procura o carro correspondente
+   const carro = carros.find(c => c.placa === placa);
+   // Atualiza a página com os detalhes
+   const detalhesDiv = document.getElementById('detalhes');
+   if (carro) {
+     detalhesDiv.innerHTML = `
+<p><strong>Placa:</strong> ${carro.placa}</p>
+<p><strong>Valor:</strong> R$ ${carro.valor}</p>
+<p><strong>Voando:</strong> ${carro.voando}</p>
+<p><strong>DT:</strong> ${carro.dt}</p>
+     `;
+   } else {
+     detalhesDiv.innerHTML = `<p class="alert">Carro não encontrado.</p>`;
+   }
+</script>
+</body>
